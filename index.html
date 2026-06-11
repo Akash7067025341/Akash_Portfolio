@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Akash | Product & UX/UI Designer Portfolio</title>
+    <meta name="description"
+        content="Portfolio of Akash, a Product & UX/UI Designer crafting high-fidelity interfaces, Web3/SaaS analytics dashboards, and interactive mobile apps with premium aesthetics.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body>
+    <!-- Custom Cursor -->
+    <div class="custom-cursor-dot" id="customCursorDot"></div>
+    <div class="custom-cursor-outline" id="customCursorOutline"></div>
+
+    <!-- Background Elements -->
+    <div class="bg-grid"></div>
+    <div class="glow-blob glow-1" id="glowBlob1"></div>
+    <div class="glow-blob glow-2" id="glowBlob2"></div>
+    <div class="glow-blob glow-3" id="glowBlob3"></div>
+
+    <!-- Header Navigation -->
+    <header class="navbar" id="mainHeader">
+        <div class="nav-container">
+            <a href="#" class="nav-logo" id="navLogo">
+                <span class="logo-dot"></span>Akash<span>.design</span>
+            </a>
+
+            <nav class="nav-links" id="navLinks">
+                <a href="#work" class="nav-link" id="linkWork">Works</a>
+                <a href="#playground" class="nav-link" id="linkPlayground">Playground</a>
+                <a href="#about" class="nav-link" id="linkAbout">About</a>
+                <a href="#contact" class="nav-link" id="linkContact">Contact</a>
+            </nav>
+
+            <div class="nav-cta">
+                <a href="#contact" class="btn btn-outline" id="headerCtaBtn">Let's talk <i
+                        data-lucide="arrow-up-right"></i></a>
+            </div>
+
+            <button class="mobile-toggle-btn" id="mobileToggleBtn" aria-label="Toggle navigation menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-section" id="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="badge-container animate-fade-in">
+                        <span class="pulse-icon"></span>
+                        <span class="badge-text">Available for select projects</span>
+                    </div>
+
+                    <h1 class="hero-title animate-slide-up" id="heroTitle">
+                        Designing products that look <span class="gradient-text">stunning</span> and feel <span
+                            class="gradient-text-alt">intuitive</span>.
+                    </h1>
+
+                    <p class="hero-subtitle animate-slide-up-delayed" id="heroSubtitle">
+                        Hi, I'm Akash. I'm a Product & UX/UI Designer focusing on clean glassmorphism, responsive SaaS
+                        architectures, and user-centric iOS/Web apps.
+                    </p>
+
+                    <div class="hero-ctas animate-slide-up-delayed-more">
+                        <a href="#work" class="btn btn-primary" id="heroPrimaryBtn">Explore Works <i
+                                data-lucide="arrow-down"></i></a>
+                        <a href="#contact" class="btn btn-secondary" id="heroSecondaryBtn">Get in touch <i
+                                data-lucide="message-square"></i></a>
+                    </div>
+                </div>
+
+                <div class="hero-visual animate-fade-in-delayed">
+                    <!-- Glassmorphic Mockup Hero Visual - Figma/User Flow Workspace -->
+                    <div class="hero-glass-card" id="heroVisualCard">
+                        <div class="card-header-dots">
+                            <span class="dot-red"></span>
+                            <span class="dot-yellow"></span>
+                            <span class="dot-green"></span>
+                        </div>
+                        <div class="hero-card-inner">
+                            <div class="visual-header">
+                                <span class="card-title-mock"><i data-lucide="layout" class="mock-header-icon"></i>
+                                    user_flow_v2.fig</span>
+                                <span class="card-status-mock edit-mode">Editing</span>
+                            </div>
+                            <div class="visual-body">
+                                <div class="figma-workspace-mock">
+                                    <!-- Sidebar Tools Mockup -->
+                                    <div class="figma-toolbar">
+                                        <button class="tool-btn active" title="Move Tool"><i
+                                                data-lucide="mouse-pointer-2"></i></button>
+                                        <button class="tool-btn" title="Frame Tool"><i
+                                                data-lucide="columns-3"></i></button>
+                                        <button class="tool-btn" title="Rectangle Tool"><i
+                                                data-lucide="square"></i></button>
+                                        <button class="tool-btn" title="Pen Tool"><i
+                                                data-lucide="pen-tool"></i></button>
+                                        <button class="tool-btn" title="Text Tool"><i data-lucide="type"></i></button>
+                                        <button class="tool-btn" title="Components"><i
+                                                data-lucide="component"></i></button>
+                                    </div>
+
+                                    <!-- Canvas Area with User Flow -->
+                                    <div class="figma-canvas">
+                                        <!-- Screen 1: Login/Entry -->
+                                        <div class="canvas-screen screen-left">
+                                            <div class="screen-header">Entry UI</div>
+                                            <div class="screen-content">
+                                                <div class="mock-avatar"></div>
+                                                <div class="mock-input-field"></div>
+                                                <div class="mock-input-field"></div>
+                                                <div class="mock-button-field"></div>
+                                            </div>
+                                        </div>
+
+                                        <!-- User Flow Connector Line -->
+                                        <div class="canvas-connector">
+                                            <svg viewBox="0 0 100 40" class="connector-line-svg">
+                                                <path d="M0,20 C40,20 60,10 100,10" fill="none"
+                                                    stroke="var(--theme-accent)" stroke-width="2" stroke-dasharray="4 4"
+                                                    class="animated-dash"></path>
+                                                <circle cx="100" cy="10" r="3" fill="var(--theme-accent)"></circle>
+                                            </svg>
+                                            <span class="connector-badge">Smart Animate</span>
+                                        </div>
+
+                                        <!-- Screen 2: Dashboard/Success -->
+                                        <div class="canvas-screen screen-right">
+                                            <div class="screen-header">Main Hub</div>
+                                            <div class="screen-content">
+                                                <div class="mock-nav-row">
+                                                    <span></span><span></span>
+                                                </div>
+                                                <div class="mock-stat-boxes">
+                                                    <span></span><span></span>
+                                                </div>
+                                                <div class="mock-graph-bars">
+                                                    <span style="height: 50%;"></span>
+                                                    <span style="height: 85%;"></span>
+                                                    <span style="height: 35%;"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Designer Collaborator Cursor -->
+                                        <div class="figma-collaborator-cursor">
+                                            <i data-lucide="mouse-pointer-2" class="cursor-pointer-icon"></i>
+                                            <span class="cursor-label">Akash</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Small auxiliary cards for layering -->
+                    <div class="hero-floating-badge badge-1" id="floatBadge1">
+                        <i data-lucide="figma" class="icon-figma"></i>
+                        <div>
+                            <h4>Design Systems</h4>
+                            <p>Tokens & Auto-Layout</p>
+                        </div>
+                    </div>
+                    <div class="hero-floating-badge badge-2" id="floatBadge2">
+                        <i data-lucide="smartphone" class="icon-phone"></i>
+                        <div>
+                            <h4>UX Prototypes</h4>
+                            <p>Micro-interactions</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Scroll Indicator -->
+            <div class="scroll-down-indicator">
+                <span class="mouse">
+                    <span class="wheel"></span>
+                </span>
+            </div>
+        </section>
+
+        <!-- Selected Works Section -->
+        <section class="work-section" id="work">
+            <div class="section-header container">
+                <span class="section-tagline">Selected Portfolio</span>
+                <h2 class="section-title">Crafting solutions for complex systems</h2>
+
+                <div class="work-filters" id="workFilters">
+                    <button class="filter-btn active" data-filter="all" id="filterAll">All Works</button>
+                    <button class="filter-btn" data-filter="web" id="filterWeb">Web & SaaS</button>
+                    <button class="filter-btn" data-filter="mobile" id="filterMobile">Mobile Apps</button>
+                </div>
+            </div>
+
+            <div class="work-grid container" id="workGrid">
+                <!-- Project 1: Brownway (Mobile/Web) -->
+                <div class="project-card filter-item mobile" data-project="brownway" id="projectBrownway">
+                    <div class="project-img-wrapper">
+                        <img src="assets/Brownway Project Image.png" alt="Brownway Logistics Project Image Mockup"
+                            class="project-img">
+                        <div class="project-overlay">
+                            <span class="btn btn-primary">View Case Study <i data-lucide="arrow-right"></i></span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="tag">Mobile UX/UI</span>
+                            <span class="tag">Logistics Tech</span>
+                            <span class="tag">Product Design</span>
+                        </div>
+                        <h3 class="project-title">Brownway — Route Optimization & Delivery App</h3>
+                        <p class="project-description">
+                            A high-fidelity design system and user experience mapping driver workflows, real-time route
+                            optimization, and delivery status logs.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Project 2: Wallet Project (Mobile) -->
+                <div class="project-card filter-item mobile" data-project="wallet" id="projectWallet">
+                    <div class="project-img-wrapper">
+                        <img src="assets/Mockup Image Wallet.png" alt="Wallet Digital Payment App Mockup"
+                            class="project-img">
+                        <div class="project-overlay">
+                            <span class="btn btn-primary">View Case Study <i data-lucide="arrow-right"></i></span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="tag">Fintech App</span>
+                            <span class="tag">iOS UI Design</span>
+                            <span class="tag">Micro-interactions</span>
+                        </div>
+                        <h3 class="project-title">Fintech Wallet — Expense Tracker & Payment Hub</h3>
+                        <p class="project-description">
+                            Designing a smooth interface for multi-account transfers, card controls, transaction
+                            histories, and graphical budget visualizers.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Project 3: Edu Smart (Web/Dashboard) -->
+                <div class="project-card filter-item web" data-project="edusmart" id="projectEduSmart">
+                    <div class="project-img-wrapper">
+                        <img src="assets/EDu Smart Image.png" alt="Edu Smart Learning Portal Mockup"
+                            class="project-img">
+                        <div class="project-overlay">
+                            <span class="btn btn-primary">View Case Study <i data-lucide="arrow-right"></i></span>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <div class="project-tags">
+                            <span class="tag">Web Dashboard</span>
+                            <span class="tag">EdTech Portal</span>
+                            <span class="tag">SaaS UI</span>
+                        </div>
+                        <h3 class="project-title">Edu Smart — Student Progress & Course Center</h3>
+                        <p class="project-description">
+                            A comprehensive student and educator interface simplifying curriculum tracks, online tests,
+                            calendar events, and analytics dashboards.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="work-more-cta">
+                <a href="https://www.behance.net/akashchourasiya31" target="_blank" rel="noopener noreferrer"
+                    class="btn btn-primary" id="viewAllProjectsBtn">
+                    View All Projects on Behance <i data-lucide="external-link"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Interactive UX Playground Section -->
+        <section class="playground-section" id="playground">
+            <div class="playground-container container">
+                <div class="playground-intro">
+                    <span class="section-tagline">Live Prototyping</span>
+                    <h2 class="section-title">Design System Sandbox</h2>
+                    <p class="section-desc">
+                        A dynamic tool demonstrating how minor design token alterations can completely reshape the voice
+                        and experience of a digital product. Interact with the variables below to test them on the
+                        preview component in real-time.
+                    </p>
+
+                    <!-- Playground Controls -->
+                    <div class="playground-controls">
+                        <div class="control-group">
+                            <label for="themeSelector">Theme Accent Profile</label>
+                            <div class="color-options" id="themeSelector">
+                                <button class="color-btn active" data-color="indigo"
+                                    style="background-color: var(--accent-indigo);" aria-label="Indigo Theme"></button>
+                                <button class="color-btn" data-color="cyan"
+                                    style="background-color: var(--accent-cyan);" aria-label="Cyan Theme"></button>
+                                <button class="color-btn" data-color="magenta"
+                                    style="background-color: var(--accent-magenta);"
+                                    aria-label="Magenta Theme"></button>
+                            </div>
+                        </div>
+
+                        <div class="control-group">
+                            <label for="radiusSlider">Border Radius (Token: <code>--card-radius</code>): <span
+                                    id="radiusVal">16px</span></label>
+                            <input type="range" id="radiusSlider" min="0" max="32" value="16" class="custom-slider">
+                        </div>
+
+                        <div class="control-group">
+                            <label for="blurSlider">Backdrop Blur (Token: <code>--card-blur</code>): <span
+                                    id="blurVal">16px</span></label>
+                            <input type="range" id="blurSlider" min="0" max="40" value="16" class="custom-slider">
+                        </div>
+
+                        <div class="control-group">
+                            <label for="hoverSelect">Micro-Interaction Mode</label>
+                            <select id="hoverSelect" class="custom-select">
+                                <option value="glow">Neon Glow Overlay</option>
+                                <option value="lift">Vertical Float Lift</option>
+                                <option value="scale">Bouncy Uniform Scale</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="playground-preview-pane">
+                    <!-- Sandbox Card Preview -->
+                    <div class="sandbox-card" id="sandboxCard">
+                        <div class="sandbox-header">
+                            <div class="sandbox-badge">
+                                <span class="sandbox-badge-dot"></span>Interactive Live Preview
+                            </div>
+                            <i data-lucide="sparkles" class="sandbox-icon"></i>
+                        </div>
+                        <h3 class="sandbox-card-title">Token Explorer</h3>
+                        <p class="sandbox-card-text">
+                            Notice how changes in border radius, theme variables, and backdrop blur affect the visual
+                            hierarchy, accessibility contrast, and sensory emotion of this panel.
+                        </p>
+                        <div class="sandbox-footer">
+                            <button class="btn btn-primary" id="sandboxCta">Press Me <i
+                                    data-lucide="mouse-pointer"></i></button>
+                        </div>
+                    </div>
+                    <div class="playground-background-decor"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About & Process Section -->
+        <section class="about-section" id="about">
+            <div class="about-container container">
+                <div class="about-grid">
+                    <!-- Bio card -->
+                    <div class="about-card bio-card">
+                        <span class="section-tagline">My Philosophy</span>
+                        <h2 class="about-title">Hi, I'm Akash.</h2>
+                        <p class="about-bio">
+                            I am a Product & UX/UI Designer who sits at the intersection of business strategy, user
+                            psychology, and visual crafts. Over the past 5 years, I have worked with start-ups and tech
+                            teams to distill highly complex workflows into intuitive, clean interface models.
+                        </p>
+                        <p class="about-bio">
+                            I believe design shouldn't just look pretty; it should solve real business metrics. I design
+                            systems with high fidelity, detailed motion curves, and clean architectures.
+                        </p>
+                        <div class="about-socials">
+                            <a href="#" class="social-link" aria-label="Figma Profile"><i data-lucide="figma"></i></a>
+                            <a href="#" class="social-link" aria-label="LinkedIn"><i data-lucide="linkedin"></i></a>
+                            <a href="#" class="social-link" aria-label="Dribbble"><i data-lucide="dribbble"></i></a>
+                            <a href="#" class="social-link" aria-label="GitHub"><i data-lucide="github"></i></a>
+                        </div>
+                    </div>
+
+                    <!-- Skills card -->
+                    <div class="about-card skills-card">
+                        <h3 class="card-subtitle">Expertise & Tools</h3>
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <h4>Core Skills</h4>
+                                <ul>
+                                    <li><i data-lucide="check" class="check-icon"></i> Interaction Design</li>
+                                    <li><i data-lucide="check" class="check-icon"></i> User Research & Testing</li>
+                                    <li><i data-lucide="check" class="check-icon"></i> Design Systems (Figma)</li>
+                                    <li><i data-lucide="check" class="check-icon"></i> Interactive Prototyping</li>
+                                    <li><i data-lucide="check" class="check-icon"></i> Front-End Development</li>
+                                </ul>
+                            </div>
+                            <div class="skill-category">
+                                <h4>My Toolkit</h4>
+                                <div class="tools-tags">
+                                    <span class="tool-tag">Figma</span>
+                                    <span class="tool-tag">Framer</span>
+                                    <span class="tool-tag">Adobe CC</span>
+                                    <span class="tool-tag">Webflow</span>
+                                    <span class="tool-tag">CSS / HTML</span>
+                                    <span class="tool-tag">JavaScript</span>
+                                    <span class="tool-tag">Git</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Process flow steps -->
+                <div class="process-wrapper">
+                    <h3 class="process-title-main">My Design Workflow</h3>
+                    <div class="process-steps">
+                        <div class="process-step">
+                            <div class="step-num">01</div>
+                            <h4>Discover & Research</h4>
+                            <p>Diving into analytics, conducting user interviews, and researching competitor models to
+                                gather actionable UX insights.</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-num">02</div>
+                            <h4>Define & Wireframe</h4>
+                            <p>Mapping information architecture, building user flows, and wireframing user steps to
+                                establish optimal flows.</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-num">03</div>
+                            <h4>UI Design & Mockups</h4>
+                            <p>Crafting gorgeous glassmorphic widgets, defining design system tokens, and implementing
+                                high-fidelity graphics.</p>
+                        </div>
+                        <div class="process-step">
+                            <div class="step-num">04</div>
+                            <h4>Prototype & Test</h4>
+                            <p>Building rich micro-interactions, doing validation tests, and collaborating with
+                                developers to ensure pixel-perfect release.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section" id="contact">
+            <div class="contact-container container">
+                <div class="contact-info-pane">
+                    <span class="section-tagline">Start a Conversation</span>
+                    <h2 class="section-title">Let's create something extraordinary</h2>
+                    <p class="contact-desc">
+                        Have a project in mind, want to collaborate on a design system, or just want to chat about user
+                        psychology? Drop a line and let's explore how we can work together.
+                    </p>
+
+                    <div class="contact-details">
+                        <div class="detail-item">
+                            <i data-lucide="mail"></i>
+                            <div>
+                                <span>Email Me</span>
+                                <a href="mailto:designer.akash31@gmail.com">designer.akash31@gmail.com</a>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i data-lucide="phone"></i>
+                            <div>
+                                <span>Call / WhatsApp</span>
+                                <a href="tel:+917067025341">+91 70670 25341</a>
+                            </div>
+                        </div>
+                        <div class="detail-item">
+                            <i data-lucide="map-pin"></i>
+                            <div>
+                                <span>Location</span>
+                                <a>Ahmedabad, Gujarat, India (Available globally)</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-form-pane">
+                    <!-- Glassmorphic Form -->
+                    <form class="contact-form" id="contactForm" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="formName">Your Name</label>
+                                <input type="text" id="formName" name="name" placeholder="John Doe" required>
+                                <span class="error-msg" id="nameError">Please enter your name.</span>
+                            </div>
+                            <div class="form-group">
+                                <label for="formEmail">Email Address</label>
+                                <input type="email" id="formEmail" name="email" placeholder="john@example.com" required>
+                                <span class="error-msg" id="emailError">Please enter a valid email address.</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Project Type</label>
+                            <div class="radio-group">
+                                <label class="radio-card">
+                                    <input type="radio" name="projectType" value="SaaS / Web App" checked>
+                                    <span class="radio-content">
+                                        <i data-lucide="laptop"></i>
+                                        <span>Web App/SaaS</span>
+                                    </span>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="projectType" value="Mobile App">
+                                    <span class="radio-content">
+                                        <i data-lucide="smartphone"></i>
+                                        <span>Mobile App</span>
+                                    </span>
+                                </label>
+                                <label class="radio-card">
+                                    <input type="radio" name="projectType" value="Design System">
+                                    <span class="radio-content">
+                                        <i data-lucide="layers"></i>
+                                        <span>Design System</span>
+                                    </span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="formMessage">Your Message</label>
+                            <textarea id="formMessage" name="message" rows="5"
+                                placeholder="Tell me a bit about your project..." required></textarea>
+                            <span class="error-msg" id="messageError">Please enter your message.</span>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-submit" id="formSubmitBtn">
+                            Send Message <i data-lucide="send"></i>
+                        </button>
+                    </form>
+
+                    <!-- Form Success Message -->
+                    <div class="form-success-card" id="formSuccessCard">
+                        <i data-lucide="check-circle" class="success-icon"></i>
+                        <h3>Message Sent Successfully!</h3>
+                        <p>Thank you for reaching out. I've received your request and will get back to you within 24
+                            hours.</p>
+                        <button class="btn btn-secondary" id="formResetBtn">Send another message</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container container">
+            <div class="footer-left">
+                <a href="#" class="footer-logo">
+                    <span class="logo-dot"></span>Akash<span>.design</span>
+                </a>
+                <p class="footer-tagline">Designing high-end interfaces that bridge the gap between human intuition and
+                    technical execution.</p>
+            </div>
+
+            <div class="footer-right">
+                <div class="footer-time-widget">
+                    <span class="pulse-icon"></span>
+                    <span id="localTimeText">Local Time: --:-- --</span>
+                </div>
+                <p class="footer-copy">&copy; 2026 Akash. All rights reserved. Created with Antigravity.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Case Study Modals (Templates injected dynamically via JS) -->
+    <div class="modal-overlay" id="caseStudyModal">
+        <div class="modal-content">
+            <button class="modal-close-btn" id="modalCloseBtn" aria-label="Close modal">
+                <i data-lucide="x"></i>
+            </button>
+            <div class="modal-body" id="modalBody">
+                <!-- Case study content will be loaded dynamically by script.js -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js"></script>
+</body>
+
+</html>

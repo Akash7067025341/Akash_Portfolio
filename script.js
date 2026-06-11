@@ -1,0 +1,564 @@
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Initialize Lucide Icons
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+
+    // 2. Custom Cursor Logic
+    const cursorDot = document.getElementById('customCursorDot');
+    const cursorOutline = document.getElementById('customCursorOutline');
+    
+    let mouseX = 0;
+    let mouseY = 0;
+    let outlineX = 0;
+    let outlineY = 0;
+    const speed = 0.15; // Speed multiplier for the cursor outline lag
+
+    // Check if device supports touch
+    const isTouchDevice = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+    if (!isTouchDevice && cursorDot && cursorOutline) {
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+            
+            // Instantly position the center dot
+            cursorDot.style.left = `${mouseX}px`;
+            cursorDot.style.top = `${mouseY}px`;
+        });
+
+        // Frame update loop for trailing effect
+        const updateCursor = () => {
+            const dx = mouseX - outlineX;
+            const dy = mouseY - outlineY;
+            
+            outlineX += dx * speed;
+            outlineY += dy * speed;
+            
+            cursorOutline.style.left = `${outlineX}px`;
+            cursorOutline.style.top = `${outlineY}px`;
+            
+            requestAnimationFrame(updateCursor);
+        };
+        requestAnimationFrame(updateCursor);
+
+        // Add hover triggers on interactive components
+        const hoverables = document.querySelectorAll('a, button, .project-card, input, select, textarea, .color-btn, .custom-slider');
+        hoverables.forEach(el => {
+            el.addEventListener('mouseenter', () => {
+                document.body.classList.add('custom-cursor-hover');
+            });
+            el.addEventListener('mouseleave', () => {
+                document.body.classList.remove('custom-cursor-hover');
+            });
+        });
+    }
+
+    // 3. Header Sticky Styling on Scroll
+    const header = document.getElementById('mainHeader');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+
+    // 4. Mobile Menu Navigation Toggle
+    const mobileToggleBtn = document.getElementById('mobileToggleBtn');
+    const navLinks = document.getElementById('navLinks');
+    
+    if (mobileToggleBtn && navLinks) {
+        mobileToggleBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            header.classList.toggle('mobile-menu-open');
+        });
+
+        // Close menu on clicking link
+        const navItems = document.querySelectorAll('.nav-link');
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                header.classList.remove('mobile-menu-open');
+            });
+        });
+    }
+
+    // 5. Project Filters Logic
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const projectCards = document.querySelectorAll('.project-card');
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Remove active from all buttons
+            filterBtns.forEach(b => b.classList.remove('active'));
+            // Add active to current
+            btn.classList.add('active');
+
+            const filterValue = btn.getAttribute('data-filter');
+
+            projectCards.forEach(card => {
+                if (filterValue === 'all') {
+                    card.classList.remove('hide');
+                } else {
+                    if (card.classList.contains(filterValue)) {
+                        card.classList.remove('hide');
+                    } else {
+                        card.classList.add('hide');
+                    }
+                }
+            });
+        });
+    });
+
+    // 6. Interactive UX Playground Widget
+    const radiusSlider = document.getElementById('radiusSlider');
+    const radiusVal = document.getElementById('radiusVal');
+    const blurSlider = document.getElementById('blurSlider');
+    const blurVal = document.getElementById('blurVal');
+    const colorBtns = document.querySelectorAll('.color-btn');
+    const hoverSelect = document.getElementById('hoverSelect');
+    const sandboxCard = document.getElementById('sandboxCard');
+
+    // Radius Slider Change
+    if (radiusSlider && radiusVal && sandboxCard) {
+        radiusSlider.addEventListener('input', (e) => {
+            const val = e.target.value;
+            radiusVal.textContent = `${val}px`;
+            sandboxCard.style.setProperty('--card-radius', `${val}px`);
+        });
+    }
+
+    // Blur Slider Change
+    if (blurSlider && blurVal && sandboxCard) {
+        blurSlider.addEventListener('input', (e) => {
+            const val = e.target.value;
+            blurVal.textContent = `${val}px`;
+            sandboxCard.style.setProperty('--card-blur', `${val}px`);
+        });
+    }
+
+    // Theme Color Changes
+    colorBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            colorBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const colorName = btn.getAttribute('data-color');
+            let colorHex = '#6366f1';
+            let glowColor = 'rgba(99, 102, 241, 0.25)';
+
+            if (colorName === 'indigo') {
+                colorHex = '#6366f1';
+                glowColor = 'rgba(99, 102, 241, 0.25)';
+            } else if (colorName === 'cyan') {
+                colorHex = '#06b6d4';
+                glowColor = 'rgba(6, 182, 212, 0.25)';
+            } else if (colorName === 'magenta') {
+                colorHex = '#d946ef';
+                glowColor = 'rgba(217, 70, 239, 0.25)';
+            }
+
+            // Apply style overrides to document
+            document.documentElement.style.setProperty('--theme-accent', colorHex);
+            document.documentElement.style.setProperty('--theme-accent-glow', glowColor);
+
+            // Trigger ripple effect visual on cursor
+            if (cursorDot) {
+                cursorDot.style.transform = 'translate(-50%, -50%) scale(4)';
+                setTimeout(() => {
+                    cursorDot.style.transform = 'translate(-50%, -50%) scale(1)';
+                }, 200);
+            }
+        });
+    });
+
+    // Custom Interaction Style
+    if (hoverSelect && sandboxCard) {
+        hoverSelect.addEventListener('change', (e) => {
+            const mode = e.target.value;
+            
+            // Reset transition styles first
+            sandboxCard.style.transform = 'none';
+            sandboxCard.style.boxShadow = '0 30px 60px rgba(0,0,0,0.3)';
+            
+            // Remove previous interaction handlers
+            sandboxCard.onmouseenter = null;
+            sandboxCard.onmouseleave = null;
+
+            if (mode === 'glow') {
+                sandboxCard.onmouseenter = () => {
+                    sandboxCard.style.boxShadow = '0 30px 60px rgba(0,0,0,0.4), 0 0 40px var(--theme-accent-glow)';
+                    sandboxCard.style.borderColor = 'var(--theme-accent)';
+                };
+                sandboxCard.onmouseleave = () => {
+                    sandboxCard.style.boxShadow = '0 30px 60px rgba(0,0,0,0.3)';
+                    sandboxCard.style.borderColor = 'var(--card-border)';
+                };
+            } else if (mode === 'lift') {
+                sandboxCard.onmouseenter = () => {
+                    sandboxCard.style.transform = 'translateY(-15px)';
+                    sandboxCard.style.boxShadow = '0 45px 80px rgba(0,0,0,0.5)';
+                };
+                sandboxCard.onmouseleave = () => {
+                    sandboxCard.style.transform = 'translateY(0)';
+                    sandboxCard.style.boxShadow = '0 30px 60px rgba(0,0,0,0.3)';
+                };
+            } else if (mode === 'scale') {
+                sandboxCard.onmouseenter = () => {
+                    sandboxCard.style.transform = 'scale(1.05)';
+                    sandboxCard.style.boxShadow = '0 35px 70px rgba(0,0,0,0.4)';
+                };
+                sandboxCard.onmouseleave = () => {
+                    sandboxCard.style.transform = 'scale(1)';
+                    sandboxCard.style.boxShadow = '0 30px 60px rgba(0,0,0,0.3)';
+                };
+            }
+        });
+        
+        // Trigger default glow bind
+        hoverSelect.dispatchEvent(new Event('change'));
+    }
+
+    // 7. Dynamic Local Time Clock
+    const timeText = document.getElementById('localTimeText');
+    if (timeText) {
+        const updateLocalTime = () => {
+            // Using Indian Standard Time format (since the current local time context is UTC+5:30)
+            const options = {
+                timeZone: 'Asia/Kolkata',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: true
+            };
+            const timeString = new Date().toLocaleTimeString('en-US', options);
+            timeText.textContent = `India Time: ${timeString}`;
+        };
+        updateLocalTime();
+        setInterval(updateLocalTime, 1000);
+    }
+
+    // 8. Contact Form Validator
+    const contactForm = document.getElementById('contactForm');
+    const successCard = document.getElementById('formSuccessCard');
+    const resetFormBtn = document.getElementById('formResetBtn');
+
+    if (contactForm && successCard) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let isValid = true;
+
+            const nameInput = document.getElementById('formName');
+            const emailInput = document.getElementById('formEmail');
+            const messageInput = document.getElementById('formMessage');
+
+            // Name verification
+            if (nameInput.value.trim() === '') {
+                nameInput.parentElement.classList.add('has-error');
+                isValid = false;
+            } else {
+                nameInput.parentElement.classList.remove('has-error');
+            }
+
+            // Email verification
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(emailInput.value.trim())) {
+                emailInput.parentElement.classList.add('has-error');
+                isValid = false;
+            } else {
+                emailInput.parentElement.classList.remove('has-error');
+            }
+
+            // Message verification
+            if (messageInput.value.trim() === '') {
+                messageInput.parentElement.classList.add('has-error');
+                isValid = false;
+            } else {
+                messageInput.parentElement.classList.remove('has-error');
+            }
+
+            if (isValid) {
+                // Show loading state on button
+                const submitBtn = document.getElementById('formSubmitBtn');
+                const originalBtnHtml = submitBtn.innerHTML;
+                submitBtn.innerHTML = 'Sending... <i data-lucide="loader-2" class="animate-spin"></i>';
+                submitBtn.disabled = true;
+                if (typeof lucide !== 'undefined') {
+                    lucide.createIcons();
+                }
+
+                // Build Form Data payload
+                const formData = new FormData(contactForm);
+                
+                // Note: Get your FREE Access Key from https://web3forms.com
+                // Paste your key below where it says 'YOUR_ACCESS_KEY_HERE'
+                formData.append("access_key", "d40f3c01-c6d4-4900-bfbe-52e887e35b80");
+
+                fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    body: formData
+                })
+                .then(async (response) => {
+                    let resJson = await response.json();
+                    if (response.status === 200) {
+                        // Success state transition
+                        successCard.classList.add('active');
+                        contactForm.style.opacity = '0';
+                        contactForm.reset();
+                    } else {
+                        console.error(resJson);
+                        alert("Submission Error: " + resJson.message);
+                    }
+                })
+                .catch(error => {
+                    console.error(error);
+                    alert("Submission failed. Please check your internet connection.");
+                })
+                .finally(() => {
+                    // Restore button
+                    submitBtn.innerHTML = originalBtnHtml;
+                    submitBtn.disabled = false;
+                    if (typeof lucide !== 'undefined') {
+                        lucide.createIcons();
+                    }
+                });
+            }
+        });
+
+        if (resetFormBtn) {
+            resetFormBtn.addEventListener('click', () => {
+                successCard.classList.remove('active');
+                contactForm.style.opacity = '1';
+            });
+        }
+    }
+
+    // 9. Case Studies Dynamic Data & Modal
+    const caseStudies = {
+        brownway: {
+            title: "Brownway — Logistic Solutions & Route Tracker",
+            subtitle: "Distilling driver tracking and terminal operations into a unified mobile tool",
+            tags: ["Mobile UX/UI", "Logistics Tech", "Product Design"],
+            image: "assets/Brownway Project Case Study.png",
+            client: "Brownway Logistics Group",
+            role: "Lead UI/UX Designer",
+            timeline: "5 Months (2025)",
+            challenge: "Drivers and dispatchers had to coordinate across multiple messaging groups, printed route sheets, and distinct terminal logging portals, leading to delivery delays and high operational overhead.",
+            research: "We mapped the day-to-day operations of 12 long-haul transit drivers. We found that data-logging while driving was unsafe, and communication with dispatchers was fragmented. Users needed a single tap route updater with offline support.",
+            solution: "I designed a high-contrast dark UI optimized for in-vehicle dashboards. Large typography, clear primary actions, and single-tap status logging (like 'Arrived', 'Unloading') streamlined drivers' tasks. It integrates live map routing and automated delay reports.",
+            outcomes: [
+                {
+                    title: "Reduced Transit Delays",
+                    desc: "Interactive navigation and dispatch updates reduced average transit delay metrics by 25%."
+                },
+                {
+                    title: "High Driver Adoption Rate",
+                    desc: "Minimal learning curve and simplified inputs resulted in a 100% adoption rate among transit workers."
+                },
+                {
+                    title: "Simplified Reporting",
+                    desc: "Auto-logging and offline support eliminated manual paperwork errors completely."
+                }
+            ]
+        },
+        wallet: {
+            title: "Fintech Wallet — Expense Tracker & Payment Hub",
+            subtitle: "A modern approach to multi-asset banking, billing, and expenses tracking",
+            tags: ["Fintech App", "iOS UI Design", "Micro-interactions"],
+            image: "assets/Wallet Case Study.png",
+            client: "PayArc Financiers",
+            role: "Senior Product Designer",
+            timeline: "4 Months (2025)",
+            challenge: "Traditional mobile banking apps suffer from cluttered layouts, confusing charge descriptions, and separate card management screens, causing friction for daily transaction tracking.",
+            research: "Conducted usability testing with 20 college students and young professionals. Identified that split billing and instant category-based budget visualizers were the most desired but worst implemented features.",
+            solution: "Designed a clean mobile wallet utilizing high-end frosted-glass card views, drag-and-drop peer transfers, and interactive graphical budget summaries. Used micro-interactions to make transfers feel responsive and instant.",
+            outcomes: [
+                {
+                    title: "High App Store Rating",
+                    desc: "Launch achieved a 4.8 user rating on the iOS App Store within the first two weeks of release."
+                },
+                {
+                    title: "Increased Peer Transactions",
+                    desc: "Frictionless drag-and-drop mechanics drove a 35% increase in split-bill utility transactions."
+                },
+                {
+                    title: "Design System Optimization",
+                    desc: "Mapped all typography and button states to standard design system tokens for rapid scaling."
+                }
+            ]
+        },
+        edusmart: {
+            title: "Edu Smart — Student Progress & Course Center",
+            subtitle: "Simplifying online learning tracker, calendars, and assignments systems",
+            tags: ["Web Dashboard", "EdTech Portal", "SaaS UI"],
+            image: "assets/Edu Smart Case study.png",
+            client: "EduSmart Academy Ltd.",
+            role: "Product Designer",
+            timeline: "3 Months (2026)",
+            challenge: "Students felt overwhelmed by fragmented assignment deadlines, separate video links, and disjointed progress charts across different courses.",
+            research: "Interviews with teachers and students revealed that progress bars and clear deadline priorities directly correlated with course completion rates. Clear checklist systems reduced stress.",
+            solution: "Created an integrated student workspace with dynamic progress cards, upcoming class alerts, calendar widgets, and quick-access course folders. Kept colors vibrant yet clean.",
+            outcomes: [
+                {
+                    title: "Higher Course Completions",
+                    desc: "Visually prioritising upcoming due dates increased course completion rates by 50%."
+                },
+                {
+                    title: "High User Satisfaction",
+                    desc: "Post-release surveys showed 92% positive usability feedback from active students."
+                },
+                {
+                    title: "Fewer Support Queries",
+                    desc: "Self-explanatory course onboarding guides reduced student dashboard support tickets by 40%."
+                }
+            ]
+        }
+    };
+
+    const caseStudyModal = document.getElementById('caseStudyModal');
+    const modalBody = document.getElementById('modalBody');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+    if (caseStudyModal && modalBody && modalCloseBtn) {
+        // Function to render and open modal
+        const openCaseStudy = (projectId) => {
+            const data = caseStudies[projectId];
+            if (!data) return;
+
+            // Generate content HTML
+            let contentHtml = `
+                <div class="cs-hero">
+                    <div class="cs-tags">
+                        ${data.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                    </div>
+                    <h1 class="cs-title">${data.title}</h1>
+                    <p class="hero-subtitle">${data.subtitle}</p>
+                    
+                    <div class="cs-meta">
+                        <div class="cs-meta-item">
+                            <span>Client</span>
+                            <p>${data.client}</p>
+                        </div>
+                        <div class="cs-meta-item">
+                            <span>My Role</span>
+                            <p>${data.role}</p>
+                        </div>
+                        <div class="cs-meta-item">
+                            <span>Timeline</span>
+                            <p>${data.timeline}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // If image exists, render it
+            if (data.image) {
+                contentHtml += `
+                    <img src="${data.image}" alt="${data.title} Presentation Mockup" class="cs-main-img">
+                `;
+            } else {
+                contentHtml += `
+                    <div class="cs-main-img" style="aspect-ratio: 16/9; background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-primary) 100%); display:flex; align-items:center; justify-content:center;">
+                        <i data-lucide="layers" style="width: 80px; height: 80px; color: var(--theme-accent); opacity: 0.8;"></i>
+                    </div>
+                `;
+            }
+
+            contentHtml += `
+                <div class="cs-section">
+                    <div class="cs-grid">
+                        <h3>The Challenge</h3>
+                        <div>
+                            <p>${data.challenge}</p>
+                        </div>
+                    </div>
+                    
+                    <div class="cs-grid">
+                        <h3>Research & UX Discovery</h3>
+                        <div>
+                            <p>${data.research}</p>
+                        </div>
+                    </div>
+
+                    <div class="cs-grid">
+                        <h3>High-Fi Solution</h3>
+                        <div>
+                            <p>${data.solution}</p>
+                        </div>
+                    </div>
+
+                    <div class="cs-grid">
+                        <h3>Outcomes & Metrics</h3>
+                        <div>
+                            <ul class="cs-insight-list">
+                                ${data.outcomes.map(o => `
+                                    <li>
+                                        <i data-lucide="trending-up"></i>
+                                        <div>
+                                            <h5>${o.title}</h5>
+                                            <p>${o.desc}</p>
+                                        </div>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            modalBody.innerHTML = contentHtml;
+            caseStudyModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+
+            // Reinitialize Lucide Icons inside modal
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        };
+
+        // Bind clicks to cards
+        projectCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const projectId = card.getAttribute('data-project');
+                openCaseStudy(projectId);
+            });
+        });
+
+        // Close functions
+        const closeModal = () => {
+            caseStudyModal.classList.remove('active');
+            document.body.style.overflow = '';
+        };
+
+        modalCloseBtn.addEventListener('click', closeModal);
+        caseStudyModal.addEventListener('click', (e) => {
+            if (e.target === caseStudyModal) {
+                closeModal();
+            }
+        });
+
+        // Close on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && caseStudyModal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+    }
+
+    // 10. Background drift based on cursor movement
+    const glowBlob1 = document.getElementById('glowBlob1');
+    const glowBlob2 = document.getElementById('glowBlob2');
+    const glowBlob3 = document.getElementById('glowBlob3');
+
+    if (!isTouchDevice && glowBlob1 && glowBlob2 && glowBlob3) {
+        document.addEventListener('mousemove', (e) => {
+            const xOffset = (e.clientX - window.innerWidth / 2) * 0.03;
+            const yOffset = (e.clientY - window.innerHeight / 2) * 0.03;
+
+            glowBlob1.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
+            glowBlob2.style.transform = `translate(${-xOffset}px, ${-yOffset}px)`;
+            glowBlob3.style.transform = `translate(${xOffset * 0.5}px, ${-yOffset * 0.5}px)`;
+        });
+    }
+});
