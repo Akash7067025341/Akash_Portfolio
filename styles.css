@@ -482,6 +482,15 @@ img {
     color: var(--text-secondary);
 }
 
+.hero-pretitle {
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 0.8rem;
+    font-family: var(--font-title);
+    letter-spacing: -0.01em;
+}
+
 .hero-title {
     font-size: 3.8rem;
     font-weight: 800;
@@ -2269,6 +2278,11 @@ img {
     
     .nav-cta {
         display: none; /* Hide top CTA on small screens */
+    }
+    
+    .hero-pretitle {
+        font-size: 1.3rem;
+        margin-bottom: 0.6rem;
     }
     
     .hero-title {
