@@ -1394,20 +1394,20 @@ img {
     display: flex;
     flex-direction: column;
     position: relative;
-    height: 480px; /* Taller height to prevent overlap */
+    height: 520px; /* Taller height to give plenty of space */
 }
 
-/* Desktop absolute card positioning */
+/* Desktop absolute card positioning relative to center line */
 .item-top .timeline-content {
     position: absolute;
-    top: 0;
+    bottom: calc(50% + 55px); /* Card is exactly 55px above the center line */
     left: 50%;
     transform: translateX(-50%);
 }
 
 .item-bottom .timeline-content {
     position: absolute;
-    bottom: 0;
+    top: calc(50% + 55px); /* Card is exactly 55px below the center line */
     left: 50%;
     transform: translateX(-50%);
 }
@@ -1418,7 +1418,7 @@ img {
     -webkit-backdrop-filter: blur(var(--card-blur));
     border: 1px solid var(--card-border);
     border-radius: var(--card-radius);
-    padding: 2rem 1.8rem;
+    padding: 1.6rem 1.5rem; /* Reduced padding slightly to make it tighter and cleaner */
     width: 100%;
     max-width: 350px;
     display: flex;
@@ -1426,6 +1426,34 @@ img {
     justify-content: center;
     transition: var(--transition-smooth);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+/* Vertical Connector Lines */
+.item-top .timeline-content::after {
+    content: '';
+    position: absolute;
+    bottom: -55px; /* extends from card bottom to the center line */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 55px;
+    background: linear-gradient(to bottom, var(--card-border), var(--theme-accent));
+    z-index: 1;
+    transition: var(--transition-smooth);
+}
+
+.item-bottom .timeline-content::after {
+    content: '';
+    position: absolute;
+    top: -55px; /* extends from card top to the center line */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 2px;
+    height: 55px;
+    background: linear-gradient(to top, var(--card-border), var(--theme-accent));
+    z-index: 1;
+    transition: var(--transition-smooth);
 }
 
 .timeline-spacer {
@@ -1502,12 +1530,23 @@ img {
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
 }
 
+/* Dynamic stretching and movement on hover */
 .item-top:hover .timeline-content {
     transform: translateX(-50%) translateY(-8px);
+}
+.item-top:hover .timeline-content::after {
+    height: 63px;
+    bottom: -63px;
+    background: linear-gradient(to bottom, var(--theme-accent), var(--accent-cyan));
 }
 
 .item-bottom:hover .timeline-content {
     transform: translateX(-50%) translateY(8px);
+}
+.item-bottom:hover .timeline-content::after {
+    height: 63px;
+    top: -63px;
+    background: linear-gradient(to top, var(--theme-accent), var(--accent-cyan));
 }
 
 /* ==========================================
@@ -2482,6 +2521,20 @@ img {
         width: 100%;
         max-width: 100%;
         padding: 1.8rem;
+        position: relative;
+    }
+    
+    .timeline-content::after {
+        content: '';
+        position: absolute;
+        left: -3rem !important;
+        top: 2rem !important;
+        bottom: auto !important;
+        width: 3rem !important;
+        height: 2px !important;
+        background: linear-gradient(to right, var(--theme-accent), var(--card-border)) !important;
+        transform: translateY(-50%) !important;
+        opacity: 0.4 !important;
     }
     
     .timeline-spacer {
