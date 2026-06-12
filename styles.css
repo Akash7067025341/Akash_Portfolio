@@ -1394,7 +1394,22 @@ img {
     display: flex;
     flex-direction: column;
     position: relative;
-    height: 420px;
+    height: 480px; /* Taller height to prevent overlap */
+}
+
+/* Desktop absolute card positioning */
+.item-top .timeline-content {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.item-bottom .timeline-content {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .timeline-content {
@@ -1404,7 +1419,8 @@ img {
     border: 1px solid var(--card-border);
     border-radius: var(--card-radius);
     padding: 2rem 1.8rem;
-    height: calc(50% - 35px);
+    width: 100%;
+    max-width: 350px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -1413,7 +1429,7 @@ img {
 }
 
 .timeline-spacer {
-    height: calc(50% - 35px);
+    display: none; /* Spacer is not needed for absolute desktop layout */
 }
 
 .timeline-node {
@@ -1487,11 +1503,11 @@ img {
 }
 
 .item-top:hover .timeline-content {
-    transform: translateY(-8px);
+    transform: translateX(-50%) translateY(-8px);
 }
 
 .item-bottom:hover .timeline-content {
-    transform: translateY(8px);
+    transform: translateX(-50%) translateY(8px);
 }
 
 /* ==========================================
@@ -2488,14 +2504,31 @@ img {
     }
 
     .work-grid {
+        flex-direction: column;
+        gap: 3.5rem;
+    }
+    
+    .project-card {
         grid-template-columns: 1fr;
+        padding: 2.5rem 2rem;
+        gap: 2rem;
     }
     
-    .project-card:first-child {
-        grid-column: span 1;
+    .project-card.layout-text-left .project-img-wrapper,
+    .project-card.layout-image-left .project-img-wrapper {
+        order: 1;
     }
     
-    .project-card:first-child .project-img-wrapper {
+    .project-card.layout-text-left .project-info,
+    .project-card.layout-image-left .project-info {
+        order: 2;
+    }
+    
+    .project-title {
+        font-size: 1.8rem;
+    }
+    
+    .project-img-wrapper {
         aspect-ratio: 16/9;
     }
     
