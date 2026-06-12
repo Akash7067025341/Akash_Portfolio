@@ -1153,175 +1153,168 @@ img {
 
 /* Work Grid and Cards */
 .work-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 5.5rem; /* Spacious separation between case studies */
 }
 
-/* Span first case study across full width for emphasis */
-.project-card:first-child {
-    grid-column: span 2;
-}
-
+/* Base project card layout */
 .project-card {
+    display: grid;
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 4.5rem;
+    align-items: center;
     background: var(--card-bg);
     border: 1px solid var(--card-border);
     border-radius: var(--card-radius);
-    overflow: hidden;
+    padding: 4rem;
     backdrop-filter: blur(var(--card-blur));
     -webkit-backdrop-filter: blur(var(--card-blur));
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.05);
     transition: var(--transition-smooth);
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
-}
-
-.project-img-wrapper {
-    position: relative;
-    aspect-ratio: 16/9;
-    overflow: hidden;
-    background-color: #0b0e14;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-}
-
-.project-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-/* Styled Vector mockup placeholder card */
-.project-vector-mockup {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #090b10 0%, #151a28 100%);
-    position: relative;
-    overflow: hidden;
-}
-
-.nebula-grid-mock {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.2rem;
-    width: 80%;
-}
-
-.nebula-item-mock {
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    padding: 1rem;
-    font-size: 0.8rem;
-    color: var(--text-secondary);
-    text-align: center;
-    position: relative;
-    transition: var(--transition-smooth);
-}
-
-.nebula-item-mock.glow-indigo::after {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: 10px;
-    border: 1.5px solid var(--accent-indigo);
-    opacity: 0.3;
-}
-
-.nebula-item-mock.glow-cyan::after {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: 10px;
-    border: 1.5px solid var(--accent-cyan);
-    opacity: 0.3;
-}
-
-.nebula-item-mock.glow-magenta::after {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    border-radius: 10px;
-    border: 1.5px solid var(--accent-magenta);
-    opacity: 0.3;
-}
-
-.project-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(7, 9, 14, 0.4);
-    opacity: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: var(--transition-smooth);
-    z-index: 3;
 }
 
 .project-card:hover {
     transform: translateY(-8px);
     border-color: rgba(255, 255, 255, 0.15);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4), 0 0 30px rgba(99, 102, 241, 0.05);
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45), 0 0 40px rgba(99, 102, 241, 0.08);
 }
 
-.project-card:hover .project-img {
-    transform: scale(1.04);
+/* Alternating ordering classes */
+.project-card.layout-text-left .project-info {
+    order: 1;
+}
+.project-card.layout-text-left .project-img-wrapper {
+    order: 2;
 }
 
-.project-card:hover .project-overlay {
-    opacity: 1;
+.project-card.layout-image-left .project-info {
+    order: 2;
+}
+.project-card.layout-image-left .project-img-wrapper {
+    order: 1;
 }
 
+/* Project Info Styling */
 .project-info {
-    padding: 2.2rem;
     display: flex;
     flex-direction: column;
-    flex-grow: 1;
+    align-items: flex-start;
+    text-align: left;
 }
 
-.project-tags {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 1.2rem;
-}
-
-.tag {
+.project-badge {
     font-size: 0.75rem;
-    font-weight: 500;
-    color: var(--text-secondary);
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 0.3rem 0.8rem;
-    border-radius: 50px;
-}
-
-.project-title {
-    font-size: 1.6rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--theme-accent);
+    background: rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(99, 102, 241, 0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 6px;
     font-weight: 600;
-    margin-bottom: 0.8rem;
+    margin-bottom: 1.2rem;
+    display: inline-block;
     transition: var(--transition-fast);
 }
 
-.project-card:hover .project-title {
-    color: var(--theme-accent);
+.project-card:hover .project-badge {
+    background: rgba(6, 182, 212, 0.1);
+    border-color: rgba(6, 182, 212, 0.2);
+    color: var(--accent-cyan);
 }
 
-.project-description {
+.project-title {
+    font-size: 2.3rem;
+    font-weight: 800;
+    color: var(--text-primary);
+    line-height: 1.25;
+    margin-bottom: 0.6rem;
+    font-family: var(--font-title);
+    letter-spacing: -0.02em;
+}
+
+.project-meta {
     font-size: 0.95rem;
-    line-height: 1.6;
     color: var(--text-secondary);
+    margin-bottom: 2rem;
+    font-weight: 500;
 }
 
-/* First project sizing customization */
-.project-card:first-child .project-img-wrapper {
-    aspect-ratio: 21/9;
+/* Highlights Stack */
+.project-highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    width: 100%;
+    margin-bottom: 2.2rem;
+}
+
+.highlight-item {
+    background: rgba(255, 255, 255, 0.015);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-left: 4px solid var(--theme-accent); /* Thick left border in theme accent */
+    padding: 1.2rem 1.4rem;
+    border-radius: 8px;
+    transition: var(--transition-smooth);
+    text-align: left;
+}
+
+.project-card:hover .highlight-item {
+    background: rgba(255, 255, 255, 0.03);
+    border-color: rgba(255, 255, 255, 0.1);
+    border-left-color: var(--accent-cyan);
+    transform: translateX(6px); /* Indent highlight card slightly on hover */
+}
+
+.highlight-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+    font-family: var(--font-title);
+    letter-spacing: -0.01em;
+}
+
+.highlight-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.project-action {
+    margin-top: 0.5rem;
+}
+
+/* Image Wrapper Styling (No-crop full container mockup) */
+.project-img-wrapper {
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-height: 520px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background-color: #0b0e14;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.project-img {
+    width: 100%;
+    height: auto;
+    max-height: 520px;
+    display: block;
+    object-fit: cover;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.project-card:hover .project-img {
+    transform: scale(1.03);
 }
 
 /* Filter Hide State */
